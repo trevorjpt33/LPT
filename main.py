@@ -16,7 +16,6 @@ from pathlib import Path as plib
 matplotlib.use('TkAgg') # Integrate matplotlib with Python's Tkinter GUI library
 current_dir = plib(getcwd())
 bytes_file = plib.joinpath(current_dir, 'MySQL_Data')
-print(bytes_file, current_dir)
 
 try:
     # Try establishing a connection to the database
@@ -39,19 +38,21 @@ def read_db_data(outfile):
 
     with open(outfile, 'wb') as f:
         try:
-            query = "SELECT trace_data FROM test ORDER BY trace_id ASC;"
+            query = "SELECT trace_data, trace_time FROM test ORDER BY trace_id ASC;"
             cursor.execute(query)
             result = cursor.fetchall()
             blobs_count = len(result)
+            trace_times = []
 
             for blob in result:
                 blobs_size = len(blob[0])
                 f.write(blob[0])
+                trace_times.append(blob[1])
 
         except mysql.connector.Error as DbQueryError:
             print("\nThe provided query was not executed successfully.", "\n---> " + DbQueryError.msg)
 
-    return blobs_count, blobs_size
+    return blobs_count, blobs_size, trace_times
 
 
 # Reads binary file directly into an array of long integers for each row of the resulting relation #
@@ -74,7 +75,7 @@ ticks_y = ['-130 dBm', '-120 dBm', '-110 dBm', '-100 dBm', '-90 dBm', '-80 dBm',
 fig = plt.figure("LP Technologies")      # Assign the matplotlib figure to a variable
 ax = fig.add_subplot()  # Initialize a subplot (axes) for more customization later
 
-num_blobs, size_blobs = read_db_data(bytes_file)
+num_blobs, size_blobs, time_stamps = read_db_data(bytes_file)
 data = parse_db_data(bytes_file, num_blobs, size_blobs)
 
 doubles = []
