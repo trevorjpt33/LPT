@@ -1,6 +1,5 @@
 # LPT
-Trevor Poirier
-LP Technologies Programmer Test
+Trevor Poirier - LP Technologies Programmer Test
 
 Version
 - Testing was done with Python 3.6.8
