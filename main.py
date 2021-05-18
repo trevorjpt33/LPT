@@ -43,7 +43,7 @@ def read_db_data(outfile):
             cursor.execute(query)
             result = cursor.fetchall()
             blobs_count = len(result)   # blobs_count will help separate the long integers by id later
-            trace_times = []            # List containing type datetime
+            trace_times = []            # List that will contain items of type datetime
 
             for blob in result:
                 blobs_size = len(blob[0])    # blobs_size will help separate the long integers by id later, too
@@ -110,7 +110,7 @@ while True:    # Begin while loop to ensure the drawings are repeated until user
                                horizontalalignment='center',
                                verticalalignment='bottom',
                                fontsize=8, color='limegreen',
-                               transform=ax.transAxes)
+                               transform=ax.transAxes)  # Make transform based on axes
         top_left_label = ax.text(
                                  0.25 * left, 0.9225 * (bottom + top),
                                  "New BW Segment",  # Text to display
@@ -118,7 +118,7 @@ while True:    # Begin while loop to ensure the drawings are repeated until user
                                  verticalalignment='top',
                                  fontsize=8, color='limegreen',
                                  fontweight='bold',
-                                 transform=ax.transAxes)
+                                 transform=ax.transAxes)  # Make transform based on axes
         top_right_label = ax.text(
                                  0.968 * (left + right),
                                  0.9225 * (bottom + top),
@@ -127,7 +127,7 @@ while True:    # Begin while loop to ensure the drawings are repeated until user
                                  verticalalignment='top',
                                  fontsize=8, color='limegreen',
                                  fontweight='bold',
-                                 transform=ax.transAxes)
+                                 transform=ax.transAxes)  # Make transform based on axes
 
         # Change each "spine" or outer edge of the graph to gray dashed line
         ax.spines['top'].set_linestyle('dashed')
