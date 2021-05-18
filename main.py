@@ -95,6 +95,39 @@ while True:    # Begin while loop to ensure the drawings are repeated until user
         x = np.arange(850, 1150.5, 0.5)   # Generate an array of values for x axis with same dimensions as y axis
         y = doubles[i]
 
+        # Points of reference to place the additional labels on the graph appropriately
+        left, width = 0.25, 0.5
+        bottom, height = 0.25, 0.5
+        right = left + width
+        top = bottom + height
+
+        # Creation of the 3 additional labels found in the example, including the trace_time
+        time_display = ax.text(
+                               0.5 * (left+right),
+                               0.00675 * (bottom + top),
+                               "Trace Time: {}".format(str(time_stamps[i])),  # Text to display
+                               horizontalalignment='center',
+                               verticalalignment='bottom',
+                               fontsize=8, color='limegreen',
+                               transform=ax.transAxes)
+        top_left_label = ax.text(
+                                 0.25 * left, 0.9225 * (bottom + top),
+                                 "New BW Segment",  # Text to display
+                                 horizontalalignment='left',
+                                 verticalalignment='top',
+                                 fontsize=8, color='limegreen',
+                                 fontweight='bold',
+                                 transform=ax.transAxes)
+        top_right_label = ax.text(
+                                 0.968 * (left + right),
+                                 0.9225 * (bottom + top),
+                                 "244",  # Text to display
+                                 horizontalalignment='right',
+                                 verticalalignment='top',
+                                 fontsize=8, color='limegreen',
+                                 fontweight='bold',
+                                 transform=ax.transAxes)
+
         # Change each "spine" or outer edge of the graph to gray dashed line
         ax.spines['top'].set_linestyle('dashed')
         ax.spines['top'].set_edgecolor('gray')
