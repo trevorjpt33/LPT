@@ -1,2 +1,2 @@
 # LPT
-Coding Challenge, LP Technologies
+LP Technologies Programmer Test
