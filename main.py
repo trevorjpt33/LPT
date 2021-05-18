@@ -38,16 +38,17 @@ def read_db_data(outfile):
 
     with open(outfile, 'wb') as f:
         try:
+            # ORDER BY clause is to ensure that the rows are being read and stored in sequential order
             query = "SELECT trace_data, trace_time FROM test ORDER BY trace_id ASC;"
             cursor.execute(query)
             result = cursor.fetchall()
-            blobs_count = len(result)
-            trace_times = []
+            blobs_count = len(result)   # blobs_count will help separate the long integers by id later
+            trace_times = []            # List containing type datetime
 
             for blob in result:
-                blobs_size = len(blob[0])
-                f.write(blob[0])
-                trace_times.append(blob[1])
+                blobs_size = len(blob[0])    # blobs_size will help separate the long integers by id later, too
+                f.write(blob[0])             # trace_data is at index 0, write it to file for later
+                trace_times.append(blob[1])  # trace_time is at index 1, store it in a list for later
 
         except mysql.connector.Error as DbQueryError:
             print("\nThe provided query was not executed successfully.", "\n---> " + DbQueryError.msg)
